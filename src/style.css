@@ -1,0 +1,119 @@
+body {
+  color: #1a2957;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  padding: 0px;
+  margin: 0;
+}
+h1 {
+  font-weight: 800;
+  font-size: 30px;
+}
+h2 {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 400;
+}
+h3 {
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+ul {
+  box-sizing: border-box;
+  list-style: none;
+  padding: 0;
+  margin-top: 0px;
+  text-align: center;
+}
+.main {
+  max-width: 600px;
+  margin-top: 50px;
+  padding: 30px 20px 1px 20px;
+  background-color: #ffffff;
+  border: 2px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+.mt-row {
+  margin-top: 10px;
+}
+
+.current-date {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.icon-describe {
+  margin-top: -7px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.future-forecast {
+  margin-bottom: 35px;
+  padding: 10px;
+}
+
+.future-forecast:hover {
+  background-color: rgba(158, 158, 158, 0.082);
+  border-radius: 10px;
+}
+
+.day-of-the-week {
+  font-weight: 600;
+}
+.day-temperature {
+  font-size: 18px;
+}
+.night-temperature {
+  font-size: 14px;
+}
+
+.time,
+.date {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.temp-value {
+  font-size: 90px;
+  font-weight: 600;
+}
+.temp,
+.temp-maxmin {
+  display: flex;
+  justify-content: center;
+}
+
+.temp-units {
+  padding: 30px 5px 0 5px;
+}
+
+.weather-values {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.celsius {
+  font-size: 20px;
+  color: #00204a;
+}
+
+.weather-temperature2 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.sun-icon {
+  max-width: 100%;
+}
