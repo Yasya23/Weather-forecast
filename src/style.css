@@ -36,7 +36,7 @@ ul {
 .main {
   max-width: 600px;
   margin-top: 50px;
-  padding: 30px 20px 1px 20px;
+  padding: 30px 30px 1px 30px;
   background-color: #ffffff;
   border: 2px solid #dbdbdb;
   border-radius: 5px;
@@ -116,4 +116,9 @@ ul {
 
 .sun-icon {
   max-width: 100%;
+}
+.git {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
