@@ -1,69 +1,80 @@
-body {
-  color: #1a2957;
-  font-family: Arial, Helvetica, sans-serif;
+* {
+  padding: 0;
+  margin: 0;
+}
+:root {
+  --main-color: #22313f;
+  --second-color: #34495e;
+  --third-color: #8dc6ff;
+  --fourth-color: #e4f1fe;
+}
+ul {
+  list-style: none;
 }
 
 a {
   text-decoration: none;
 }
 
-p {
-  padding: 0px;
-  margin: 0;
-}
-h1 {
-  font-weight: 800;
-  font-size: 30px;
-}
-h2 {
-  font-size: 20px;
-  line-height: 1;
-  font-weight: 400;
-}
-h3 {
-  font-size: 18px;
-  line-height: 1;
-  font-weight: 400;
+body {
+  color: var(--main-color);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-ul {
-  box-sizing: border-box;
-  list-style: none;
-  padding: 0;
-  margin-top: 0px;
-  text-align: center;
+h1 {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 30px;
 }
+h2,
+h3 {
+  font-size: 20px;
+  line-height: 1;
+}
+
 .main {
   max-width: 600px;
-  margin-top: 50px;
+  margin: 50px auto 0 auto;
   padding: 30px 30px 1px 30px;
-  background-color: #ffffff;
   border: 2px solid #dbdbdb;
   border-radius: 5px;
 }
 
-.mt-row {
-  margin-top: 10px;
+.temp {
+  position: relative;
 }
 
-.current-date {
-  font-size: 25px;
-  font-weight: 600;
+.temp-value {
+  display: inline-block;
+  font-size: 90px;
 }
 
-.icon-describe {
-  margin-top: -7px;
-  font-size: 16px;
-  font-weight: 400;
+.temp-units {
+  display: inline-block;
+  position: absolute;
+  top: 30px;
+}
+
+.weather-values {
+  padding: 5px 0 0 5px;
+  font-size: 18px;
+  text-align: left;
+}
+
+.celcius,
+.fahrenheit {
+  font-size: 20px;
+  color: var(--second-color);
 }
 
 .future-forecast {
-  margin-bottom: 35px;
+  margin: 10px 0;
   padding: 10px;
+  text-align: center;
 }
 
 .future-forecast:hover {
-  background-color: rgba(158, 158, 158, 0.082);
+  background-color: var(--fourth-color);
   border-radius: 10px;
 }
 
@@ -77,48 +88,19 @@ ul {
   font-size: 14px;
 }
 
-.time,
-.date {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.temp-value {
-  font-size: 90px;
-  font-weight: 600;
-}
-.temp,
-.temp-maxmin {
-  display: flex;
-  justify-content: center;
-}
-
-.temp-units {
-  padding: 30px 5px 0 5px;
-}
-
-.weather-values {
-  margin-top: 20px;
-  padding: 10px;
-  font-size: 14px;
-  text-align: left;
-}
-
-.celsius {
-  font-size: 20px;
-  color: #00204a;
-}
-
-.weather-temperature2 {
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.sun-icon {
-  max-width: 100%;
-}
-.git {
-  display: flex;
-  justify-content: center;
+.github-link {
   margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 570px) {
+  .icon-main {
+    display: inline-block;
+  }
+
+  .temp,
+  .weather-values li,
+  .icon-main {
+    text-align: center;
+  }
 }

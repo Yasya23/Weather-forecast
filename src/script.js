@@ -114,6 +114,7 @@ let buttonCurrent = document.querySelector("#button-current");
 buttonCurrent.addEventListener("click", getLocation);
 
 citySearch("Dnipro");
+
 /*let celcius = document.querySelector("#celcius");
 let fahrenheit = document.querySelector("#fahrenheit");
 let formulaFahrenheit = Math.round(currentTemperature.innerHTML * 1.8 + 32);
