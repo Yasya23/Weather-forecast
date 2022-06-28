@@ -32,6 +32,10 @@ h3 {
   line-height: 1;
 }
 
+.icon-main {
+  max-width: 100%;
+}
+
 .main {
   max-width: 600px;
   margin: 50px auto 0 auto;
@@ -80,9 +84,11 @@ h3 {
 
 .day-of-the-week {
   font-weight: 600;
+  margin-bottom: 5px;
 }
 .day-temperature {
   font-size: 18px;
+  margin-top: 5px;
 }
 .night-temperature {
   font-size: 14px;
