@@ -21,6 +21,13 @@
       <div class="main">
         <div class="row">
           <div class="col col-sm-12">
+            <p class="last-update">
+              Last updated:
+              <span id="current-day"></span>
+              <span id="current-month"></span>
+              <span id="current-day-number"></span>
+              <span id="current-time"></span>
+            </p>
             <div class="input-group">
               <input
                 type="search"
@@ -49,13 +56,7 @@
         <div class="row">
           <div class="col">
             <h1 class="city-name" id="city"></h1>
-            <h2>
-              <span id="current-day"></span>
-              <span id="current-month"></span>
-              <span id="current-day-number"></span>
-              <span id="current-time"></span>
-            </h2>
-            <h3 id="weather-describe"></h3>
+            <h2 id="weather-describe"></h2>
           </div>
         </div>
 
@@ -77,11 +78,13 @@
           <div class="col-sm-4">
             <ul class="weather-values">
               <li>
-                Max: <span id="max"> 0 </span> min:
-                <span id="min"> 0 </span>
+                Max: <span class="color-blue" id="max"> 0 </span> min:
+                <span class="color-blue" id="min"> 0 </span>
               </li>
-              <li>Humidity: <span id="humidity">0</span> %</li>
-              <li>Wind: <span id="wind">0</span> m/s</li>
+              <li>
+                Humidity: <span class="color-blue" id="humidity">0</span> %
+              </li>
+              <li>Wind: <span class="color-blue" id="wind">0</span> m/s</li>
             </ul>
           </div>
         </div>

@@ -47,12 +47,15 @@ function time(date) {
   if (minutes < 10) {
     minutes = "0" + date.getMinutes();
   }
+  if (hours < 10) {
+    hours = "0" + date.getHours();
+  }
   let time = `${hours}:${minutes}`;
   timeOption.innerHTML = time;
-  return time;
 }
 
 let date = new Date();
+console.log(date);
 WeekDays(date);
 months(date);
 dayNumber(date);
@@ -114,8 +117,8 @@ let buttonCurrent = document.querySelector("#button-current");
 buttonCurrent.addEventListener("click", getLocation);
 
 citySearch("Dnipro");
-
-/*let celcius = document.querySelector("#celcius");
+/*
+let celcius = document.querySelector("#celcius");
 let fahrenheit = document.querySelector("#fahrenheit");
 let formulaFahrenheit = Math.round(currentTemperature.innerHTML * 1.8 + 32);
 
@@ -128,5 +131,4 @@ function celciusShow() {
 }
 
 fahrenheit.addEventListener("click", convertToFahrenheit);
-celcius.addEventListener("click", celciusShow);
-*/
+celcius.addEventListener("click", celciusShow);*/
