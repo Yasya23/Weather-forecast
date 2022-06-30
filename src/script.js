@@ -55,7 +55,6 @@ function time(date) {
 }
 
 let date = new Date();
-console.log(date);
 WeekDays(date);
 months(date);
 dayNumber(date);
@@ -65,6 +64,7 @@ function citySearch(city) {
   let apiKey = "f28953e2adf95c39204b733667598ea9";
   let link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(link).then(showTemperature);
+  axios.get(link).then(showIcons);
 }
 
 function cityInput(event) {
@@ -95,6 +95,40 @@ function showTemperature(response) {
   document.querySelector("#wind").innerHTML = response.data.wind.speed;
 }
 
+//Icons change
+function showIcons(response) {
+  let info = response.data.weather[0].main;
+  console.log(response.data);
+  console.log(info);
+  let icon = document.querySelector("#icon-main");
+  let iconWay = "images/mist.svg";
+  switch (info) {
+    case "Thunderstorm":
+      iconWay = "images/thunderstorm.svg";
+      break;
+    case "Drizzle":
+      iconWay = "images/rain.svg";
+      break;
+    case "Rain":
+      iconWay = "images/rain.svg";
+      break;
+    case "Snow":
+      iconWay = "images/snow.svg";
+      break;
+    case "Atmosphere":
+      iconWay = "images/mist.svg";
+      break;
+    case "Clear":
+      iconWay = "images/sun.svg";
+      break;
+    case "Clouds":
+      iconWay = "images/clouds.svg";
+      break;
+  }
+  icon.setAttribute("src", iconWay);
+  icon.setAttribute("alt", info);
+}
+
 function getLocation() {
   navigator.geolocation.getCurrentPosition(currentPosition);
   function currentPosition(response) {
@@ -105,6 +139,7 @@ function getLocation() {
     let link = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     axios.get(link).then(getCity);
     axios.get(link).then(showTemperature);
+    axios.get(link).then(showIcons);
   }
 }
 

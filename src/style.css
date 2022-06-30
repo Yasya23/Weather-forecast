@@ -39,11 +39,9 @@ h2 {
   color: var(--third-color);
   text-align: center;
 }
-
 .icon-main {
-  max-width: 100%;
+  text-align: center;
 }
-
 .main {
   max-width: 600px;
   margin: 50px auto 0 auto;
@@ -113,13 +111,8 @@ h2 {
 }
 
 @media (max-width: 570px) {
-  .icon-main {
-    display: inline-block;
-  }
-
   .temp,
-  .weather-values li,
-  .icon-main {
+  .weather-values li {
     text-align: center;
   }
 }
