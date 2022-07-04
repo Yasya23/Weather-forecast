@@ -18,16 +18,13 @@
   </head>
   <body>
     <div class="container">
+      <p class="last-update">
+        Last updated:
+        <span id="last-update-date"></span>
+      </p>
       <div class="main">
         <div class="row">
           <div class="col col-sm-12">
-            <p class="last-update">
-              Last updated:
-              <span id="current-day"></span>
-              <span id="current-month"></span>
-              <span id="current-day-number"></span>
-              <span id="current-time"></span>
-            </p>
             <div class="input-group">
               <input
                 type="search"
@@ -68,8 +65,8 @@
             <div class="temp">
               <div class="temp-value" id="current-temperature">0</div>
               <div class="temp-units">
-                <a href="#" class="celcius" id="celcius">°C</a>
-                <a href="#" class="fahrenheit" id="fahrenheit">°F</a>
+                <a href="#" class="active" id="celcius">°C</a>
+                <a href="#" id="fahrenheit">°F</a>
               </div>
             </div>
           </div>
@@ -77,13 +74,11 @@
           <div class="col-sm-4">
             <ul class="weather-values">
               <li>
-                Max: <span class="color-blue" id="max"> 0 </span> min:
-                <span class="color-blue" id="min"> 0 </span>
+                Max: <span id="max"> 0 </span> min:
+                <span id="min"> 0 </span>
               </li>
-              <li>
-                Humidity: <span class="color-blue" id="humidity">0</span> %
-              </li>
-              <li>Wind: <span class="color-blue" id="wind">0</span> m/s</li>
+              <li>Humidity: <span id="humidity">0</span> %</li>
+              <li>Wind: <span id="wind">0</span> m/s</li>
             </ul>
           </div>
         </div>
@@ -113,7 +108,7 @@
             <ul class="future-forecast">
               <li class="day-of-the-week">THU</li>
               <li>
-                <img src="images/moon.svg" alt="" height="50" />
+                <img src="images/clouds.svg" alt="" height="50" />
               </li>
               <li class="day-temperature">18°C</li>
               <li class="night-temperature">15°C</li>

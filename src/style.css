@@ -1,7 +1,22 @@
-* {
-  padding: 0;
+*,
+*::before,
+*::after {
   margin: 0;
+  padding: 0;
+  border: 0;
 }
+li {
+  list-style: none;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/*-----*/
 :root {
   --first-color: #22313f;
   --second-color: #34495e;
@@ -9,22 +24,15 @@
   --fourth-color: #e4f1fe;
   --border-color: #dbdbdb;
 }
-ul {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-}
 
 body {
   color: var(--first-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 h1 {
   margin-top: 10px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 30px;
 }
 
@@ -33,21 +41,23 @@ h2 {
   line-height: 1;
 }
 
+.main {
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+  padding: 20px 30px 10px 30px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+
 .last-update {
-  margin-bottom: 15px;
+  margin-top: 20px;
   font-size: 15px;
   color: var(--third-color);
   text-align: center;
 }
+
 .icon-main {
   text-align: center;
-}
-.main {
-  max-width: 600px;
-  margin: 50px auto 0 auto;
-  padding: 20px 30px 10px 30px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
 }
 
 .temp {
@@ -64,6 +74,7 @@ h2 {
   display: inline-block;
   position: absolute;
   top: 30px;
+  font-size: 20px;
 }
 
 .weather-values {
@@ -72,13 +83,16 @@ h2 {
   text-align: left;
 }
 
-.celcius {
-  font-size: 20px;
-  color: var(--second-color);
+@media (max-width: 570px) {
+  .temp,
+  .weather-values li {
+    text-align: center;
+  }
 }
 
-.fahrenheit {
-  font-size: 20px;
+.active {
+  color: var(--second-color);
+  cursor: default;
 }
 
 .future-forecast {
@@ -93,7 +107,7 @@ h2 {
 }
 
 .day-of-the-week {
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 5px;
 }
 
@@ -108,11 +122,4 @@ h2 {
 .github-link {
   margin-top: 10px;
   text-align: center;
-}
-
-@media (max-width: 570px) {
-  .temp,
-  .weather-values li {
-    text-align: center;
-  }
 }

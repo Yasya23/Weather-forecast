@@ -1,65 +1,3 @@
-function WeekDays(date) {
-  let weekDays = [
-    "Sunday,",
-    "Monday,",
-    "Tuesday,",
-    "Wednesday,",
-    "Thursday,",
-    "Friday,",
-    "Saturday,",
-  ];
-  let currentDay = document.querySelector("#current-day");
-  let day = weekDays[date.getDay()];
-  currentDay.innerHTML = day;
-}
-
-function months(date) {
-  let months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December ",
-  ];
-
-  let currentMonth = document.querySelector("#current-month");
-  let month = months[date.getMonth()];
-  currentMonth.innerHTML = month;
-}
-
-function dayNumber(date) {
-  let currentDayNumber = document.querySelector("#current-day-number");
-  let day = date.getDate();
-  currentDayNumber.innerHTML = `${day},`;
-}
-
-function time(date) {
-  let timeOption = document.querySelector("#current-time");
-  let minutes = date.getMinutes();
-  let hours = date.getHours();
-  if (minutes < 10) {
-    minutes = "0" + date.getMinutes();
-  }
-  if (hours < 10) {
-    hours = "0" + date.getHours();
-  }
-  let time = `${hours}:${minutes}`;
-  timeOption.innerHTML = time;
-}
-
-let date = new Date();
-WeekDays(date);
-months(date);
-dayNumber(date);
-time(date);
-
 function citySearch(city) {
   let apiKey = "f28953e2adf95c39204b733667598ea9";
   let link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -78,13 +16,14 @@ citySearchButton.addEventListener("click", cityInput);
 let writeCity = document.querySelector("#city-search");
 writeCity.addEventListener("search", cityInput);
 
+// Output weather values from api
 function showTemperature(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#weather-describe").innerHTML =
     response.data.weather[0].main;
-  document.querySelector("#current-temperature").innerHTML = Math.round(
-    response.data.main.temp
-  );
+  let temp = document.querySelector("#current-temperature");
+  currentTemp = Math.round(response.data.main.temp);
+  temp.innerHTML = currentTemp;
   document.querySelector("#max").innerHTML = Math.round(
     response.data.main.temp_max
   );
@@ -93,15 +32,18 @@ function showTemperature(response) {
   );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = response.data.wind.speed;
+  document.querySelector("#last-update-date").innerHTML = showDate(
+    response.data.dt * 1000
+  );
 }
 
-//Icons change
+//Main icon replacement
 function showIcons(response) {
-  let info = response.data.weather[0].main;
-  console.log(response.data);
-  console.log(info);
+  let info = response.data.weather[0].main; //weather description from api
   let icon = document.querySelector("#icon-main");
-  let iconWay = "images/mist.svg";
+  let iconWay = "";
+
+  //Replacing the icon in html depending on the weather description
   switch (info) {
     case "Thunderstorm":
       iconWay = "images/thunderstorm.svg";
@@ -124,17 +66,26 @@ function showIcons(response) {
     case "Clouds":
       iconWay = "images/clouds.svg";
       break;
+    default:
+      iconWay = "images/mist.svg";
   }
+
+  //Replacing the icon and alt in in HTML
   icon.setAttribute("src", iconWay);
   icon.setAttribute("alt", info);
 }
-
+/* 
+Finding your current location
+API connection
+Calling the city search function
+Calling the Weather Value Function
+Calling a function to replace the main icon
+*/
 function getLocation() {
   navigator.geolocation.getCurrentPosition(currentPosition);
   function currentPosition(response) {
     let lat = response.coords.latitude;
     let lon = response.coords.longitude;
-
     let apiKey = "f28953e2adf95c39204b733667598ea9";
     let link = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     axios.get(link).then(getCity);
@@ -142,7 +93,7 @@ function getLocation() {
     axios.get(link).then(showIcons);
   }
 }
-
+//Takes the name of the city from the api and displays in html
 function getCity(response) {
   let city = document.querySelector("#city");
   city.innerHTML = response.data.name;
@@ -151,19 +102,72 @@ function getCity(response) {
 let buttonCurrent = document.querySelector("#button-current");
 buttonCurrent.addEventListener("click", getLocation);
 
-citySearch("Dnipro");
-/*
+//last updated date
+
+function showDate(datestamp) {
+  let date = new Date(datestamp);
+
+  let weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = weekDays[date.getDay()];
+
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December ",
+  ];
+  let month = months[date.getMonth()];
+  let dayNumber = date.getDate();
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = "0" + date.getMinutes();
+  }
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = "0" + date.getHours();
+  }
+  let time = `${hours}:${minutes}`;
+
+  return `${month} ${dayNumber}, ${day}, ${time}`;
+}
+
+function celciusShow(event) {
+  event.preventDefault();
+  celcius.classList.add("active");
+  fahrenheit.classList.remove("active");
+  temp.innerHTML = currentTemp;
+}
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  celcius.classList.remove("active");
+  fahrenheit.classList.add("active");
+  let formulaFahrenheit = Math.round(currentTemp * 1.8 + 32);
+  temp.innerHTML = formulaFahrenheit;
+}
+
+let currentTemp = null;
+let temp = document.querySelector("#current-temperature");
 let celcius = document.querySelector("#celcius");
 let fahrenheit = document.querySelector("#fahrenheit");
-let formulaFahrenheit = Math.round(currentTemperature.innerHTML * 1.8 + 32);
-
-function convertToFahrenheit() {
-  currentTemperature.innerHTML = formulaFahrenheit;
-}
-
-function celciusShow() {
-  currentTemperature.innerHTML;
-}
 
 fahrenheit.addEventListener("click", convertToFahrenheit);
-celcius.addEventListener("click", celciusShow);*/
+celcius.addEventListener("click", celciusShow);
+
+citySearch("Dnipro");
