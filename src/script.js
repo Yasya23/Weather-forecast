@@ -42,6 +42,13 @@ function showDate(datestamp) {
   return `${month} ${dayNumber}, ${day}, ${time}`;
 }
 
+function showDay(datestamp) {
+  let day = new Date(datestamp * 1000);
+  let week = ["SUN", "MON", "TUE", "WEN", "THU", "FRI", "SAT"];
+  let dayNumber = week[day.getDay()];
+  return dayNumber;
+}
+
 function citySearch(city) {
   let apiKey = "f28953e2adf95c39204b733667598ea9";
   let link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -57,6 +64,7 @@ function cityInput(event) {
 
 // Output weather values from api
 function showTemperature(response) {
+  console.log(response.data);
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#weather-describe").innerHTML =
     response.data.weather[0].main;
@@ -74,39 +82,54 @@ function showTemperature(response) {
   document.querySelector("#last-update-date").innerHTML = showDate(
     response.data.dt * 1000
   );
-  futureForecast();
+  forecastApi(response.data.coord);
+  showIcons(response.data);
 }
 
-function futureForecast() {
+function forecastApi(response) {
+  let lon = response.lon;
+  let lat = response.lat;
+  let apiKey = "f28953e2adf95c39204b733667598ea9";
+  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&daily={part}&appid=${apiKey}&units=metric`;
+  axios.get(url).then(futureForecast);
+}
+
+function futureForecast(response) {
+  console.log(response.data.daily);
+  console.log(response.data.daily[3]);
+  let days = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["TUE", "WEN", "THU", "FRI", "SUT"];
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      ` <div class="col">
+  days.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        ` <div class="col">
             <ul class="future-forecast">
-              <li class="day-of-the-week">${day}</li>
+              <li class="day-of-the-week">${showDay(day.dt)}</li>
               <li>
-                <img src="images/rain.svg" alt="" height="50" />
+                <img src="${showIcons(
+                  day
+                )}" alt="" height="50" id="forecast-icon" />
               </li>
-              <li class="day-temperature">18°C</li>
-              <li class="night-temperature">15°C</li>
+              <li class="day-temperature">${Math.round(day.temp.day)}°C</li>
+              <li class="night-temperature">${Math.round(day.temp.night)}°C</li>
             </ul>
           </div>
           `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
 
 //Main icon replacement
 function showIcons(response) {
-  let info = response.data.weather[0].main; //weather description from api
+  let info = response.weather[0].main;
+  console.log(info);
   let icon = document.querySelector("#icon-main");
-  let iconWay = "";
 
+  let iconWay = "";
   //Replacing the icon in html depending on the weather description
   switch (info) {
     case "Thunderstorm":
@@ -136,7 +159,8 @@ function showIcons(response) {
 
   //Replacing the icon and alt in in HTML
   icon.setAttribute("src", iconWay);
-  icon.setAttribute("alt", info);
+  icon.setAttribute("alt", response);
+  return iconWay;
 }
 
 /* 
