@@ -21,7 +21,6 @@ a:hover {
   --first-color: #22313f;
   --second-color: #34495e;
   --third-color: #8dc6ff;
-  --fourth-color: #e4f1fe;
   --border-color: #dbdbdb;
 }
 
@@ -99,11 +98,6 @@ h2 {
   margin: 10px 0;
   padding: 10px;
   text-align: center;
-}
-
-.future-forecast:hover {
-  background-color: var(--fourth-color);
-  border-radius: 10px;
 }
 
 .day-of-the-week {
