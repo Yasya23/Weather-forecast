@@ -64,7 +64,6 @@ function cityInput(event) {
 // Output weather values from api
 function showTemperature(response) {
   document.querySelector("#city").innerHTML = response.data.name;
-
   document.querySelector("#weather-describe").innerHTML =
     response.data.weather[0].main;
   document.querySelector("#current-temperature").innerHTML = Math.round(
@@ -81,8 +80,7 @@ function showTemperature(response) {
   document.querySelector("#last-update-date").innerHTML = showDate(
     response.data.dt * 1000
   );
-  cityForUnitsCovert = response.data.name;
-  console.log(cityForUnitsCovert);
+  cityForUnits = response.data.name;
   forecastApi(response.data.coord);
   showIcons(response.data);
 }
@@ -110,8 +108,10 @@ function futureForecast(response) {
                   day.weather[0].main
                 )}" alt="" height="50" width="50" class="forecast-icon" id="forecast-icon" />
               </li>
-              <li class="day-temperature">${Math.round(day.temp.day)}°</li>
-              <li class="night-temperature">${Math.round(day.temp.night)}°</li>
+              <li class="day-temperature">${Math.round(day.temp.day)}&#186;</li>
+              <li class="night-temperature">${Math.round(
+                day.temp.night
+              )}&#186;</li>
             </ul>
           </div>
           `;
@@ -186,7 +186,8 @@ function celciusShow(event) {
   celcius.classList.add("active");
   fahrenheit.classList.remove("active");
   units = "metric";
-  citySearch(cityForUnitsCovert);
+  speed.innerHTML = " m/s";
+  citySearch(cityForUnits);
 }
 
 function convertToFahrenheit(event) {
@@ -194,7 +195,8 @@ function convertToFahrenheit(event) {
   celcius.classList.remove("active");
   fahrenheit.classList.add("active");
   units = "imperial";
-  citySearch(cityForUnitsCovert);
+  speed.innerHTML = " m/h";
+  citySearch(cityForUnits);
 }
 
 let citySearchButton = document.querySelector("#button-search");
@@ -206,7 +208,8 @@ let buttonCurrent = document.querySelector("#button-current");
 buttonCurrent.addEventListener("click", getLocation);
 
 let units = "metric";
-let cityForUnitsCovert;
+let cityForUnits;
+let speed = document.querySelector("#wind-speed");
 let celcius = document.querySelector("#celcius");
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", convertToFahrenheit);

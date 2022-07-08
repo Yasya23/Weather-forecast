@@ -64,6 +64,7 @@ h2 {
 }
 
 .temp-value {
+  margin-right: 2px;
   display: inline-block;
   font-size: 90px;
   color: var(--second-color);
