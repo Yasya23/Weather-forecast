@@ -76,6 +76,11 @@ h2 {
   font-size: 20px;
 }
 
+.active {
+  color: var(--second-color);
+  cursor: default;
+}
+
 .weather-values {
   padding: 5px 0 0 5px;
   font-size: 18px;
@@ -87,11 +92,6 @@ h2 {
   .weather-values li {
     text-align: center;
   }
-}
-
-.active {
-  color: var(--second-color);
-  cursor: default;
 }
 
 .future-forecast {
@@ -106,11 +106,11 @@ h2 {
 }
 
 .day-temperature {
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 5px;
 }
 .night-temperature {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .github-link {

@@ -51,7 +51,7 @@ function showDay(datestamp) {
 
 function citySearch(city) {
   let apiKey = "f28953e2adf95c39204b733667598ea9";
-  let link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(link).then(showTemperature);
 }
 
@@ -64,11 +64,12 @@ function cityInput(event) {
 // Output weather values from api
 function showTemperature(response) {
   document.querySelector("#city").innerHTML = response.data.name;
+
   document.querySelector("#weather-describe").innerHTML =
     response.data.weather[0].main;
-  let temp = document.querySelector("#current-temperature");
-  currentTemp = Math.round(response.data.main.temp);
-  temp.innerHTML = currentTemp;
+  document.querySelector("#current-temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
   document.querySelector("#max").innerHTML = Math.round(
     response.data.main.temp_max
   );
@@ -80,6 +81,8 @@ function showTemperature(response) {
   document.querySelector("#last-update-date").innerHTML = showDate(
     response.data.dt * 1000
   );
+  cityForUnitsCovert = response.data.name;
+  console.log(cityForUnitsCovert);
   forecastApi(response.data.coord);
   showIcons(response.data);
 }
@@ -88,7 +91,7 @@ function forecastApi(response) {
   let lon = response.lon;
   let lat = response.lat;
   let apiKey = "f28953e2adf95c39204b733667598ea9";
-  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&daily={part}&appid=${apiKey}&units=metric`;
+  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&daily={part}&appid=${apiKey}&units=${units}`;
   axios.get(url).then(futureForecast);
 }
 //forecast
@@ -107,8 +110,8 @@ function futureForecast(response) {
                   day.weather[0].main
                 )}" alt="" height="50" width="50" class="forecast-icon" id="forecast-icon" />
               </li>
-              <li class="day-temperature">${Math.round(day.temp.day)}°C</li>
-              <li class="night-temperature">${Math.round(day.temp.night)}°C</li>
+              <li class="day-temperature">${Math.round(day.temp.day)}°</li>
+              <li class="night-temperature">${Math.round(day.temp.night)}°</li>
             </ul>
           </div>
           `;
@@ -159,7 +162,6 @@ function changeIcons(response) {
 
 /* 
 Finding your current location
-API connection
 */
 function getLocation() {
   navigator.geolocation.getCurrentPosition(currentPosition);
@@ -167,7 +169,7 @@ function getLocation() {
     let lat = response.coords.latitude;
     let lon = response.coords.longitude;
     let apiKey = "f28953e2adf95c39204b733667598ea9";
-    let link = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    let link = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
     axios.get(link).then(getCity);
     axios.get(link).then(showTemperature);
   }
@@ -183,15 +185,16 @@ function celciusShow(event) {
   event.preventDefault();
   celcius.classList.add("active");
   fahrenheit.classList.remove("active");
-  temp.innerHTML = currentTemp;
+  units = "metric";
+  citySearch(cityForUnitsCovert);
 }
 
 function convertToFahrenheit(event) {
   event.preventDefault();
   celcius.classList.remove("active");
   fahrenheit.classList.add("active");
-  let formulaFahrenheit = Math.round(currentTemp * 1.8 + 32);
-  temp.innerHTML = formulaFahrenheit;
+  units = "imperial";
+  citySearch(cityForUnitsCovert);
 }
 
 let citySearchButton = document.querySelector("#button-search");
@@ -202,11 +205,10 @@ writeCity.addEventListener("search", cityInput);
 let buttonCurrent = document.querySelector("#button-current");
 buttonCurrent.addEventListener("click", getLocation);
 
-let currentTemp = null;
-let temp = document.querySelector("#current-temperature");
+let units = "metric";
+let cityForUnitsCovert;
 let celcius = document.querySelector("#celcius");
 let fahrenheit = document.querySelector("#fahrenheit");
-
 fahrenheit.addEventListener("click", convertToFahrenheit);
 celcius.addEventListener("click", celciusShow);
 
