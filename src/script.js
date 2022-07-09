@@ -160,9 +160,6 @@ function changeIcons(response) {
   return iconWay;
 }
 
-/* 
-Finding your current location
-*/
 function getLocation() {
   navigator.geolocation.getCurrentPosition(currentPosition);
   function currentPosition(response) {
