@@ -4,7 +4,7 @@
 
 This app was created during the She Codes course. It uses data from https://openweathermap.org/. 
 
-**LIVE LINK:** https://euphonious-pegasus-8fac94.netlify.app/
+[Demo](https://euphonious-pegasus-8fac94.netlify.app/)
 
 ## **Features**
 
