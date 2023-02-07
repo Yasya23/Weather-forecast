@@ -1,0 +1,45 @@
+ul {
+  margin: 0;
+}
+li {
+  list-style: none;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/*-----*/
+
+:root {
+  --first-color: #22313f;
+  --second-color: #34495e;
+  --third-color: #8dc6ff;
+  --border-color: #dbdbdb;
+}
+
+body {
+  color: var(--first-color);
+  font-family: "Roboto", sans-serif;
+}
+
+.main {
+  max-width: 600px;
+}
+
+.last-update {
+  font-size: 15px;
+  color: var(--third-color);
+}
+
+.temp-value {
+  font-size: 90px;
+  color: var(--second-color);
+}
+
+.active {
+  color: var(--second-color);
+}

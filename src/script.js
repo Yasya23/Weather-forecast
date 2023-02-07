@@ -1,4 +1,26 @@
-//last updated date
+let citySearch = document.querySelector("#form");
+let buttonCurrent = document.querySelector("#button-current");
+let speed = document.querySelector("#wind-speed");
+let celcius = document.querySelector("#celcius");
+let fahrenheit = document.querySelector("#fahrenheit");
+let units = "metric";
+let cityForUnits;
+
+buttonCurrent.addEventListener("click", getLocation);
+fahrenheit.addEventListener("click", convertToFahrenheit);
+celcius.addEventListener("click", showCelcius);
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  let city = document.querySelector("#city-search");
+  searchCity(city.value);
+  clearInputField(city);
+});
+
+function clearInputField(city) {
+  city.value = "";
+}
+
 function showDate(datestamp) {
   let date = new Date(datestamp);
 
@@ -49,16 +71,10 @@ function showDay(datestamp) {
   return dayNumber;
 }
 
-function citySearch(city) {
+function searchCity(city) {
   let apiKey = "f28953e2adf95c39204b733667598ea9";
   let link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(link).then(showTemperature);
-}
-
-function cityInput(event) {
-  event.preventDefault();
-  let city = document.querySelector("#city-search").value;
-  citySearch(city);
 }
 
 // Output weather values from api
@@ -76,7 +92,9 @@ function showTemperature(response) {
     response.data.main.temp_min
   );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  document.querySelector("#wind").innerHTML = response.data.wind.speed;
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  );
   document.querySelector("#last-update-date").innerHTML = showDate(
     response.data.dt * 1000
   );
@@ -97,21 +115,22 @@ function futureForecast(response) {
   let days = response.data.daily;
   days.shift();
   let forecastElement = document.querySelector("#forecast");
-  let forecastHTML = `<div class="row">`;
+  let forecastHTML = `<div class="row text-center">`;
   days.forEach(function (day, index) {
     if (index < 5) {
-      forecastHTML += ` <div class="col">
-            <ul class="future-forecast">
-              <li class="day-of-the-week">${showDay(day.dt)}</li>
+      forecastHTML += ` <div class="col mb-3 mb-sm-0">
+            <ul class="text-center px-1">
+              <li class="fw-bold mb-2">${showDay(day.dt)}</li>
               <li>
-                <img src="${changeIcons(
-                  day.weather[0].main
-                )}" alt="" height="50" width="50" class="forecast-icon" id="forecast-icon" />
+                <img class="mb-2"
+                src="${changeIcons(day.weather[0].icon)}" 
+                alt="${day.weather[0].description}" 
+                height="50" 
+                width="50" 
+                id="forecast-icon" />
               </li>
-              <li class="day-temperature">${Math.round(day.temp.day)}&#186;</li>
-              <li class="night-temperature">${Math.round(
-                day.temp.night
-              )}&#186;</li>
+              <li class="fs-5">${Math.round(day.temp.day)}&#186;</li>
+              <li>${Math.round(day.temp.night)}&#186;</li>
             </ul>
           </div>
           `;
@@ -123,36 +142,50 @@ function futureForecast(response) {
 
 //Main icon and alt replacement
 function showIcons(response) {
-  let info = response.weather[0].main;
   let icon = document.querySelector("#icon-main");
-  icon.setAttribute("src", changeIcons(info));
-  icon.setAttribute("alt", info);
+  let weatherDescription = response.weather[0].description;
+  let iconInfo = response.weather[0].icon;
+  icon.setAttribute("src", changeIcons(iconInfo));
+  icon.setAttribute("alt", weatherDescription);
 }
 
 //Replacing the icon in html depending on the weather description
 function changeIcons(response) {
   let iconWay = "";
   switch (response) {
-    case "Thunderstorm":
-      iconWay = "images/thunderstorm.svg";
-      break;
-    case "Drizzle":
-      iconWay = "images/rain.svg";
-      break;
-    case "Rain":
-      iconWay = "images/rain.svg";
-      break;
-    case "Snow":
-      iconWay = "images/snow.svg";
-      break;
-    case "Atmosphere":
-      iconWay = "images/mist.svg";
-      break;
-    case "Clear":
+    case "01d":
       iconWay = "images/sun.svg";
       break;
-    case "Clouds":
+    case "01n":
+      iconWay = "images/moon.svg";
+      break;
+    case "02d":
+    case "03d":
+    case "04d":
       iconWay = "images/clouds.svg";
+      break;
+    case "02n":
+    case "03n":
+    case "04n":
+      iconWay = "images/moon-clouds.svg";
+      break;
+    case "09d":
+    case "09n":
+    case "10d":
+    case "10n":
+      iconWay = "images/rain.svg";
+      break;
+    case "11d":
+    case "11n":
+      iconWay = "images/thunderstorm.svg";
+      break;
+    case "13d":
+    case "13n":
+      iconWay = "images/snow.svg";
+      break;
+    case "50d":
+    case "50n":
+      iconWay = "images/mist.svg";
       break;
     default:
       iconWay = "images/mist.svg";
@@ -178,13 +211,13 @@ function getCity(response) {
   city.innerHTML = response.data.name;
 }
 
-function celciusShow(event) {
+function showCelcius(event) {
   event.preventDefault();
   celcius.classList.add("active");
   fahrenheit.classList.remove("active");
   units = "metric";
   speed.innerHTML = " m/s";
-  citySearch(cityForUnits);
+  searchCity(cityForUnits);
 }
 
 function convertToFahrenheit(event) {
@@ -193,23 +226,7 @@ function convertToFahrenheit(event) {
   fahrenheit.classList.add("active");
   units = "imperial";
   speed.innerHTML = " m/h";
-  citySearch(cityForUnits);
+  searchCity(cityForUnits);
 }
 
-let citySearchButton = document.querySelector("#button-search");
-citySearchButton.addEventListener("click", cityInput);
-let writeCity = document.querySelector("#city-search");
-writeCity.addEventListener("search", cityInput);
-
-let buttonCurrent = document.querySelector("#button-current");
-buttonCurrent.addEventListener("click", getLocation);
-
-let units = "metric";
-let cityForUnits;
-let speed = document.querySelector("#wind-speed");
-let celcius = document.querySelector("#celcius");
-let fahrenheit = document.querySelector("#fahrenheit");
-fahrenheit.addEventListener("click", convertToFahrenheit);
-celcius.addEventListener("click", celciusShow);
-
-citySearch("Dnipro");
+searchCity("Dnipro");

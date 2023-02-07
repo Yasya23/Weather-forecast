@@ -12,68 +12,66 @@
       rel="stylesheet"
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
-      link
-    />
-    <link rel="stylesheet" href="src/style.css" />
+      link />
+    <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
-    <div class="container">
-      <p class="last-update">
+    <div class="main container">
+      <p class="last-update my-3 text-center">
         Last updated:
         <span id="last-update-date"></span>
       </p>
-      <div class="main">
-        <div class="row">
-          <div class="col col-sm-12">
-            <div class="input-group">
-              <input
-                type="search"
-                autocomplete="off"
-                class="form-control input-city"
-                placeholder="Enter a city"
-                id="city-search"
-              />
-              <button
-                class="btn btn-outline-primary input-city"
-                type="submit"
-                id="button-search"
-              >
-                Search
-              </button>
-              <button
-                class="btn btn-outline-primary input-city"
-                type="button"
-                id="button-current"
-              >
-                Current
-              </button>
-            </div>
-          </div>
-        </div>
 
-        <div class="row">
+      <div class="mb-3 p-3 border border-light-subtle rounded-1">
+        <form class="row mb-3 input-group mx-auto" id="form">
+          <input
+            type="text"
+            autocomplete="off"
+            class="form-control col col-12 col-md-8 mb-2 mb-md-0 me-md-3 rounded-1"
+            placeholder="Enter a city"
+            id="city-search" />
+          <button
+            class="btn btn-outline-primary col col-12 col-md-2 mb-2 me-md-3 mb-md-0 rounded-1"
+            type="submit"
+            id="button-search">
+            Search
+          </button>
+          <button
+            class="btn btn-outline-primary col col-12 col-md-2 rounded-1"
+            type="button"
+            id="button-current">
+            Current
+          </button>
+        </form>
+
+        <div class="row mb-3">
           <div class="col">
-            <h1 class="city-name" id="city"></h1>
-            <h2 id="weather-describe"></h2>
+            <h1 class="fw-bold fs-2" id="city"></h1>
+            <h2 class="fs-3" id="weather-describe"></h2>
           </div>
         </div>
 
-        <div class="row align-items-center">
-          <div class="col-sm-4 icon-main">
-            <img src="" alt="" height="130" width="130" id="icon-main" />
+        <div class="row align-items-center mb-3">
+          <div class="col-md-3 text-center">
+            <img src="" alt="" height="100" width="100" id="icon-main" />
           </div>
-          <div class="col-sm-4">
-            <div class="temp">
-              <div class="temp-value" id="current-temperature">0</div>
-              <div class="temp-units">
+
+          <div class="col-md-5">
+            <div class="text-center position-relative">
+              <div
+                class="temp-value d-inline-block mr-1"
+                id="current-temperature">
+                0
+              </div>
+              <div class="d-inline-block position-absolute fs-5 mt-4">
                 <a href="#" class="active" id="celcius">&#186;C</a>
                 <a href="#" id="fahrenheit">&#186;F</a>
               </div>
             </div>
           </div>
 
-          <div class="col-sm-4">
-            <ul class="weather-values">
+          <div class="col-md-4">
+            <ul class="text-center text-md-start">
               <li>
                 Max: <span id="max"> 0 </span>&#186; min:
                 <span id="min"> 0 </span>&#186;
@@ -89,7 +87,7 @@
         <div id="forecast"></div>
       </div>
 
-      <div class="github-link">
+      <div class="text-center">
         <a href="https://github.com/Yasya23/weather-forecast" target="_blank"
           >Open source code</a
         >
