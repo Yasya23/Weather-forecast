@@ -1,16 +1,16 @@
-let citySearch = document.querySelector("#form");
+let searchingForm = document.querySelector("#form");
 let buttonCurrent = document.querySelector("#button-current");
-let speed = document.querySelector("#wind-speed");
+let windSpeed = document.querySelector("#wind-speed");
 let celcius = document.querySelector("#celcius");
 let fahrenheit = document.querySelector("#fahrenheit");
 let units = "metric";
-let cityForUnits;
+let cityName = "Dnipro";
 
 buttonCurrent.addEventListener("click", getLocation);
 fahrenheit.addEventListener("click", convertToFahrenheit);
-celcius.addEventListener("click", showCelcius);
+celcius.addEventListener("click", convertToCelcius);
 
-form.addEventListener("submit", (event) => {
+searchingForm.addEventListener("submit", (event) => {
   event.preventDefault();
   let city = document.querySelector("#city-search");
   searchCity(city.value);
@@ -98,7 +98,7 @@ function showTemperature(response) {
   document.querySelector("#last-update-date").innerHTML = showDate(
     response.data.dt * 1000
   );
-  cityForUnits = response.data.name;
+  cityName = response.data.name;
   forecastApi(response.data.coord);
   showIcons(response.data);
 }
@@ -211,13 +211,13 @@ function getCity(response) {
   city.innerHTML = response.data.name;
 }
 
-function showCelcius(event) {
+function convertToCelcius(event) {
   event.preventDefault();
   celcius.classList.add("active");
   fahrenheit.classList.remove("active");
   units = "metric";
-  speed.innerHTML = " m/s";
-  searchCity(cityForUnits);
+  windSpeed.innerHTML = " m/s";
+  searchCity(cityName);
 }
 
 function convertToFahrenheit(event) {
@@ -225,8 +225,8 @@ function convertToFahrenheit(event) {
   celcius.classList.remove("active");
   fahrenheit.classList.add("active");
   units = "imperial";
-  speed.innerHTML = " m/h";
-  searchCity(cityForUnits);
+  windSpeed.innerHTML = " m/h";
+  searchCity(cityName);
 }
 
-searchCity("Dnipro");
+searchCity(cityName);
